@@ -24,3 +24,11 @@
 main {
     padding: 40px 0;
 }
+
+.card {
+    margin-bottom: 30px;
+}
+
+button {
+    margin: 0 15px;
+}

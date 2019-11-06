@@ -2,12 +2,17 @@ import React from 'react';
 
 class LoadMoreButton extends React.Component {
     render() {
+        const { isLoading } = this.props;
         return (
             <button type="button" 
-                    className="btn btn-primary"
+                    className="btn btn-primary btn-load-more"
                     onClick={this.props.onClick}
+                    disabled={isLoading}
             >
-                Load new user
+                { isLoading 
+                    ? 'User is loading...' 
+                    : 'Load new user' 
+                }
             </button>
         );
     }

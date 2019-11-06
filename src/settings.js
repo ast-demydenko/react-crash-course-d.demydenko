@@ -1,9 +1,1 @@
-import axios from 'axios';
-
-const randomUserInstance = axios.create({
-    baseURL: 'https://randomuser.me/api'
-});
-
-export {
-    randomUserInstance,
-};
+export const RANDOM_USER_URL = 'https://randomuser.me/api';
