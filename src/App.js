@@ -14,6 +14,7 @@ function App() {
     const [users, setUsers] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const [request, setRequest] = useState({});
+    const [appTheme, setAppTheme] = useState('App default-app');
         
     const handleLoadMoreClick = () => {
         const CancelToken = axios.CancelToken;
@@ -51,10 +52,20 @@ function App() {
             });
     }
 
+    const handleChangeTheme = () => {
+        ~appTheme.indexOf('custom-app')
+            ? setAppTheme('App default-app')
+            : setAppTheme('App custom-app')
+    }
+
     return (
-        <div className="App">
+        <div className={appTheme}>
           <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
+            <img src={logo} 
+                 className="App-logo" 
+                 alt="logo" 
+                 onClick={handleChangeTheme} 
+                 title="Click to toggle theme" />
           </header>
     
           <main className="container">
