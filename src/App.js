@@ -8,7 +8,7 @@ import ListUsers from './components/user/List';
 import LoadMoreButton from './components/LoadMoreButton';
 import CancelRequestButton from './components/CancelRequestButton';
 
-import { RANDOM_USER_URL } from './settings';
+import { randomUserInstance } from './settings';
 
 function App() {
     const [users, setUsers] = useState([]);
@@ -22,7 +22,7 @@ function App() {
         setLoading(true);
         setRequest(request);
 
-        axios.get(RANDOM_USER_URL, {
+        randomUserInstance.get('', {
             cancelToken: request.token
         }) 
             .then(res => {
@@ -47,9 +47,7 @@ function App() {
                     alert(err.message)
                 }
 
-                this.setState({
-                    isLoading: false
-                });
+                setLoading(false);
             });
     }
 
