@@ -21,7 +21,7 @@ class UsersList extends React.Component {
     render() {
         return (
             <div className="row users-list">
-                { this.getUsers() || this.getMessage() }
+                { this.getUsers() }
             </div>
         );
     }

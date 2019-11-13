@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 
 import logo from './logo.svg';
@@ -10,21 +10,17 @@ import CancelRequestButton from './components/CancelRequestButton';
 
 import { RANDOM_USER_URL } from './settings';
 
-class App extends React.Component {
-    state = {
-        users: [],
-        isLoading: false,
-        requestInfo: {}
-    };
+function App() {
+    const [users, setUsers] = useState([]);
+    const [isLoading, setLoading] = useState(false);
+    const [request, setRequest] = useState({});
         
-    handleLoadMoreClick = () => {
+    const handleLoadMoreClick = () => {
         const CancelToken = axios.CancelToken;
         const request = CancelToken.source();
 
-        this.setState({
-            isLoading: true,
-            request
-        });
+        setLoading(true);
+        setRequest(request);
 
         axios.get(RANDOM_USER_URL, {
             cancelToken: request.token
@@ -32,7 +28,6 @@ class App extends React.Component {
             .then(res => {
                 if (res.status === 200)  {
                     const user = res.data.results[0];
-                    const { users } = this.state;
 
                     users.push({
                         id: user.id.value,
@@ -40,11 +35,9 @@ class App extends React.Component {
                         lastName: user.name.last,
                         image: user.picture.large
                     });
-                    this.setState({
-                        isLoading: false,
-                        users
-                    });
-                    
+
+                    setUsers(users);
+                    setLoading(false);
                 }
             })
             .catch(err => {
@@ -60,28 +53,25 @@ class App extends React.Component {
             });
     }
 
-    render() {
-        const { users, isLoading, request } = this.state;
-        return (
-            <div className="App">
-              <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-              </header>
-        
-              <main className="container">
-                  <ListUsers users={users} />
-                  <LoadMoreButton onClick={this.handleLoadMoreClick} isLoading={isLoading} />
-                  
-                  { isLoading && 
-                    <CancelRequestButton request={request}
-                                         message="Loading new user was cancaled by the user..."
+    return (
+        <div className="App">
+          <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+          </header>
+    
+          <main className="container">
+              <ListUsers users={users} />
+              <LoadMoreButton onClick={handleLoadMoreClick} isLoading={isLoading} />
+              
+              { isLoading && 
+                <CancelRequestButton request={request}
+                                     message="Loading new user was cancaled by the user..."
 
-                    /> 
-                  } 
-              </main>
-            </div>
-        );
-    }
+                /> 
+              } 
+          </main>
+        </div>
+    );
 }
 
 export default App;
