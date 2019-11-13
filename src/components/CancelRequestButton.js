@@ -1,23 +1,21 @@
 import React from 'react';
 
-class CancelRequestButton extends React.Component {
+function CancelRequestButton(props) {
 
-    handleClick = () => {
-        const { request, message } = this.props;
+    const handleClick = () => {
+        const { request, message } = props;
 
         request.cancel(message);
     }
 
-    render() {
-        return (
-            <button type="button" 
-                    className="btn btn-danger"
-                    onClick={this.handleClick}
-            >
-                Cancel loading
-            </button>
-        );
-    }
+    return (
+        <button type="button" 
+                className="btn btn-danger"
+                onClick={handleClick}
+        >
+            Cancel loading
+        </button>
+    );
 }
 
 export default CancelRequestButton;

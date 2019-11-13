@@ -1,30 +1,28 @@
 import React from 'react';
 import UserTile from './Tile';
 
-class UsersList extends React.Component {
+function UsersList(props) {
     
-    getUsers = () => {
-        const { users } = this.props;
+    const getUsers = () => {
+        const { users } = props;
         if (!users.length) {
-            return this.getMessage();
+            return getMessage();
         }
 
         return users.map(user => <UserTile key={user.id} user={user} />);
     };
 
-    getMessage() {
+    const getMessage = () => {
         return (
             <h3>List is empty</h3>
         );    
     }
 
-    render() {
-        return (
-            <div className="row users-list">
-                { this.getUsers() }
-            </div>
-        );
-    }
+    return (
+        <div className="row users-list">
+            { getUsers() }
+        </div>
+    );
 }
 
 export default UsersList;
